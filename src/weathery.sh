@@ -23,7 +23,7 @@ if [[ $units = "imperial" ]]; then
 wind_unit="mph"
 temp_unit="°F"
 elif [[ $units = "metric" ]]; then
-wind_unit="kph"
+wind_unit="m/s"
 temp_unit="°C"
 else
 wind_unit=""
