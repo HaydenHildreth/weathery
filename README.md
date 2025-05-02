@@ -1,6 +1,6 @@
 # Weathery
 
-**[Based on](https://github.com/liveslol/rainy/)**
+**[Inspired by](https://github.com/liveslol/rainy/)**
 
 Neofetch-like, minimalistic, and customizable weather-fetching tool.
 
