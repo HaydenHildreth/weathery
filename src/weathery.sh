@@ -9,7 +9,7 @@ show_date=false # Show date (true/false)
 
 # API Calls
 temp=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq '.main | (.temp)')
-weather=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq -r '.weather[] | (.main)')
+weather=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq -r '.weather[0] | (.main)')
 wind=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq -r '.wind | (.speed)')
 sunriseepoch=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq -r '.sys | (.sunrise)')
 sunsetepoch=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units"| jq -r '.sys | (.sunset)')
@@ -23,12 +23,13 @@ if [[ $units = "imperial" ]]; then
 wind_unit="mph"
 temp_unit="°F"
 elif [[ $units = "metric" ]]; then
-wind_unit="m/s"
+wind_unit="kph"
 temp_unit="°C"
 else
 wind_unit=""
 temp_unit=""
 fi
+
 
 if [[ $weather = "Rain" ]]; then
     if [ $show_city = true ]; then 
