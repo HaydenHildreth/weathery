@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Script version 0.0.2
+
 #CONFIG
 api_key="change me" # OpenWeather API key
 city="change me" # City name for API call
@@ -8,6 +10,7 @@ show_city=false # Show city (true/false)
 show_date=false # Show date (true/false)
 
 # API Calls
+## 05/03/2025 -- swapped weather variable to be weather[0]
 temp=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq '.main | (.temp)')
 weather=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq -r '.weather[0] | (.main)')
 wind=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq -r '.wind | (.speed)')
@@ -23,14 +26,14 @@ if [[ $units = "imperial" ]]; then
 wind_unit="mph"
 temp_unit="°F"
 elif [[ $units = "metric" ]]; then
-wind_unit="kph"
+wind_unit="m/s"
 temp_unit="°C"
 else
 wind_unit=""
 temp_unit=""
 fi
 
-
+# Determine output based on weather type
 if [[ $weather = "Rain" ]]; then
     if [ $show_city = true ]; then 
     echo "                 City: $city"
