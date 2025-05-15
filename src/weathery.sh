@@ -9,17 +9,19 @@ units="imperial" # metric or imperial
 show_city=false # Show city (true/false)
 show_date=false # Show date (true/false)
 
-# API Calls
-## 05/03/2025 -- swapped weather variable to be weather[0]
-temp=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq '.main | (.temp)')
-weather=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq -r '.weather[0] | (.main)')
-wind=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq -r '.wind | (.speed)')
-sunriseepoch=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units" | jq -r '.sys | (.sunrise)')
-sunsetepoch=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=89cf93e5718306aec01e90693010aade&units=$units"| jq -r '.sys | (.sunset)')
+# API Call
+weather_data=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$api_key&units=$units")
+
+# Assign values
+temp=$(echo "$weather_data" | jq '.main.temp')
+weather=$(echo "$weather_data" | jq -r '.weather[0].main')
+wind=$(echo "$weather_data" | jq -r '.wind.speed')
+sunriseepoch=$(echo "$weather_data" | jq -r '.sys.sunrise')
+sunsetepoch=$(echo "$weather_data" | jq -r '.sys.sunset')
 
 # Convert epoch time to readable format
-sunrise=$( date -d @$sunriseepoch +"%H:%M:%S" )
-sunset=$( date -d @$sunsetepoch +"%H:%M:%S" )
+sunrise=$(date -d @$sunriseepoch +"%H:%M:%S")
+sunset=$(date -d @$sunsetepoch +"%H:%M:%S")
 
 # Set units of measure based on units variable setting
 if [[ $units = "imperial" ]]; then
