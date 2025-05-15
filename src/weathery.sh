@@ -20,8 +20,8 @@ sunriseepoch=$(echo "$weather_data" | jq -r '.sys.sunrise')
 sunsetepoch=$(echo "$weather_data" | jq -r '.sys.sunset')
 
 # Convert epoch time to readable format
-sunrise=$(date -d @$sunriseepoch +"%H:%M:%S")
-sunset=$(date -d @$sunsetepoch +"%H:%M:%S")
+sunrise=$( date -d @$sunriseepoch +"%H:%M:%S" )
+sunset=$( date -d @$sunsetepoch +"%H:%M:%S" )
 
 # Set units of measure based on units variable setting
 if [[ $units = "imperial" ]]; then
