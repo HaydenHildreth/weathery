@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script version 0.0.2
+# Script version 0.0.3
 
 #CONFIG
 api_key="change me" # OpenWeather API key
